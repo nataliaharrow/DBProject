@@ -54,11 +54,13 @@ class Student(models.Model):
 class Request(models.Model):
     request_type = models.CharField(max_length=30)
 
+class Profile(models.Model):
+    photo = models.ImageField(height_field=20, width_field=20)
+
 # Missing tables:
 # Profiles (userId, userPhoto)
 # Connections (userId, connectionId, timeStamp)
 # StudentIndustryInterests (userId, industryId) (Relation: Student has m IndustryInterests)
 # StudentRequests (userId, requestId, industryId, connectionId) (Relation: Student asks m Requests)
-# Profiles (userId, userPhoto)
 # Messages (userId, connectionId, messageContent, timeStamp)
 # MentorsCompanies(userId, companyId, jobTitle) (Relation: Mentors worked in m Companies)
