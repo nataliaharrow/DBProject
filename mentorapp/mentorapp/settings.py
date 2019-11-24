@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'mainpage.apps.MainpageConfig',
     'register.apps.RegisterConfig',
     'mentorsearch.apps.MentorsearchConfig',
     'django.contrib.admin',
