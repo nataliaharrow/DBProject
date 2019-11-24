@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'welcomepage.apps.WelcomepageConfig',
     'mainpage.apps.MainpageConfig',
     'register.apps.RegisterConfig',
     'mentorsearch.apps.MentorsearchConfig',
