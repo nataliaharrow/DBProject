@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
+    path('', include("django.contrib.auth.urls")), # gives access to django log-in/out pages
     path('welcomepage/', include('welcomepage.urls')),
     path('mainpage/', include('mainpage.urls')),
     path('register/', include('register.urls')),
