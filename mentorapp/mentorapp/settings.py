@@ -30,17 +30,27 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'welcomepage.apps.WelcomepageConfig',
-    'mainpage.apps.MainpageConfig',
-    'register.apps.RegisterConfig',
-    'mentorsearch.apps.MentorsearchConfig',
+    # Built-in apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 3rd party apps
     'crispy_forms',
+    'company.apps.CompanyConfig',
+    'industry.apps.IndustryConfig',
+    'user.apps.UserConfig',
+    'user_profile.apps.UserProfileConfig',
+    'mainpage.apps.MainpageConfig',
+    'mentor.apps.MentorConfig',
+    'mentorsearch.apps.MentorsearchConfig',
+    'register.apps.RegisterConfig',
+    'school.apps.SchoolConfig',
+    'student.apps.StudentConfig',
+    'welcomepage.apps.WelcomepageConfig',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +135,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # Define what CSS framework crispy_form is going to use
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+# Add redirect to homepage whenever we log in
+LOGIN_REDIRECT_URL = "/mainpage"
