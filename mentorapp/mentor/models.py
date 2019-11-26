@@ -6,10 +6,10 @@ from django.db import models
 # Create your models here.
 # Mentors (userId, schoolId, industryId, position)
 class Mentor(models.Model):
-    user_id = models.ForeignKey(
-        'user.User',
-        on_delete=models.CASCADE,
-        blank=True,)
+    # user_id = models.ForeignKey(
+    #     'user.User',
+    #     on_delete=models.CASCADE,
+    #     blank=True,)
 
     school = models.ForeignKey(
         'school.School',
