@@ -26,3 +26,4 @@ class Request(models.Model):
         max_length=2,
         choices=REQUEST_TYPE_CHOICES,
     )
+
