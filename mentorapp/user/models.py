@@ -18,18 +18,51 @@ class UserType(models.Model):
 
 # Users (userId, firstName, lastName, emailAddress, userTypeId)
 class User(models.Model):
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=40)
-    email_address = models.CharField(max_length=50)
-    bio = models.CharField(max_length=1000, default='bio')
-    user_type = models.ForeignKey(
-        'UserType',
-        on_delete=models.CASCADE,
-        blank=True,)
-    # many to one: Profile points to many users, but each user has only one profile
-    profile = models.ForeignKey(
-        'user_profile.UserProfile',
-        on_delete=models.CASCADE,
-        blank=True,
-        default='profile',
+    username = models.CharField(
+        primary_key=True, #implies uniquness
+        max_length=20,
+        default='',
+        db_column='username')
+
+    first_name = models.CharField(
+        max_length=30,
+        db_column='first_name')
+
+    last_name = models.CharField(
+        max_length=40,
+        db_column='last_name')
+
+    email_address = models.CharField(
+        unique=True,
+        max_length=50,
+        db_column='email')
+
+    bio = models.CharField(
+        max_length=1000,
+        default='bio',
+        db_column='bio')
+
+    is_student = models.BooleanField(
+        default=False,
+        db_column="is_student",
     )
+
+    is_mentor = models.BooleanField(
+        default=False,
+        db_column="is_mentor",
+    )
+    # user_type = models.ForeignKey(
+    #     'UserType',
+    #     on_delete=models.CASCADE,
+    #     blank=True,)
+    # many to one: Profile points to many users, but each user has only one profile
+    # profile = models.ForeignKey(
+    #     'user_profile.UserProfile',
+    #     on_delete=models.CASCADE,
+    #     blank=True,
+    #     default='profile',
+    # )
+
+
+
+
