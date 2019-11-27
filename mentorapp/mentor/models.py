@@ -1,7 +1,4 @@
 from django.db import models
-# from industry.models import Industry
-# from school.models import School
-# from user.models import User
 
 # Create your models here.
 # Mentors (userId, schoolId, industryId, position)
