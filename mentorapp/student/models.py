@@ -20,3 +20,5 @@ class Student(models.Model):
         on_delete=models.CASCADE,
         blank=True,)
 
+
+
