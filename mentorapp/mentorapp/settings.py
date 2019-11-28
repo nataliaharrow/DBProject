@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # Built-in apps
     'django.contrib.admin',
-    'django.contrib.auth',
+    'django.contrib.auth', #django authenticates the user
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # 3rd party apps
     'crispy_forms',
     'company.apps.CompanyConfig',
+    'connection.apps.ConnectionConfig',
     'industry.apps.IndustryConfig',
     'user.apps.UserConfig',
     'user_profile.apps.UserProfileConfig',
@@ -138,3 +139,5 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # Add redirect to homepage whenever we log in
 LOGIN_REDIRECT_URL = "/mainpage"
+
+LOGOUT_REDIRECT_URL = "/welcomepage"
