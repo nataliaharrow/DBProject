@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User as DjangoUser
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 # UserTypes (userTypeId, userTypeName) (Types: Students, Mentors)
@@ -17,25 +20,27 @@ class UserType(models.Model):
     )
 
 # Users (userId, firstName, lastName, emailAddress, userTypeId)
-class User(models.Model):
-    username = models.CharField(
-        primary_key=True, #implies uniquness
-        max_length=20,
-        default='',
-        db_column='username')
+class AppUser(models.Model):
+    user = models.OneToOneField(DjangoUser, on_delete=models.CASCADE)
 
-    first_name = models.CharField(
-        max_length=30,
-        db_column='first_name')
-
-    last_name = models.CharField(
-        max_length=40,
-        db_column='last_name')
-
-    email_address = models.CharField(
-        unique=True,
-        max_length=50,
-        db_column='email')
+    # username = models.CharField(
+    #     primary_key=True, #implies uniquness
+    #     max_length=20,
+    #     default='',
+    #     db_column='username')
+    #
+    # first_name = models.CharField(
+    #     max_length=30,
+    #     db_column='first_name')
+    #
+    # last_name = models.CharField(
+    #     max_length=40,
+    #     db_column='last_name')
+    #
+    # email_address = models.CharField(
+    #     unique=True,
+    #     max_length=50,
+    #     db_column='email')
 
     bio = models.CharField(
         max_length=1000,
@@ -63,6 +68,12 @@ class User(models.Model):
     #     default='profile',
     # )
 
+@receiver(post_save, sender=DjangoUser)
+def create_user(sender, instance, created, **kwargs):
+    if created:
+        AppUser.objects.create(user=instance)
 
-
+@receiver(post_save, sender=DjangoUser)
+def save_user(sender, instance, **kwargs):
+    instance.appuser.save()
 
