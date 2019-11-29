@@ -4,7 +4,7 @@ from django.db import models
 # Students (userId, schoolId, majorId)
 class Student(models.Model):
     user = models.OneToOneField(
-        'user.User',
+        'user.AppUser',
         on_delete=models.CASCADE,
         primary_key=True,
         default='student',
