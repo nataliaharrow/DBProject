@@ -1,0 +1,25 @@
+{% extends "mainpage/mainpage.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+        <div class="media-body">
+            {% if user.is_authenticated and user.is_student %}
+              <h1>you are a student</h1>
+                {{ user.username }}
+                {{ user.first_name }}
+                {{ user.last_name }}
+             {% elif user.is_authenticated and user.is_mentor %}
+              <h1>you are a mentor</h1>
+                {{ user.username }}
+                {{ user.first_name }}
+                {{ user.last_name }}
+            {% else %}
+            <p>Login<a href="/login"> here</a> </p>
+            {% endif %}
+        </div>
+      </div>
+      <!-- FORM HERE -->
+    </div>
+{% endblock content %}
