@@ -10,14 +10,14 @@ class Connection(models.Model):
     ]
 
     user_one = models.ForeignKey(
-        'user.AppUser',
+        'app_user.User',
         related_name='user_one',
         on_delete=models.CASCADE,
         db_column='user_one',
     )
 
     user_two = models.ForeignKey(
-        'user.AppUser',
+        'app_user.User',
         related_name='user_two',
         on_delete=models.CASCADE,
         db_column='user_two',
@@ -30,7 +30,7 @@ class Connection(models.Model):
         db_column='status')
 
     action_user = models.ForeignKey(
-        'user.AppUser',
+        'app_user.User',
         related_name='action_user',
         on_delete=models.CASCADE,
         db_column='action_user',

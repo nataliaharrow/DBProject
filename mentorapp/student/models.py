@@ -3,22 +3,12 @@ from django.db import models
 # Create your models here.
 # Students (userId, schoolId, majorId)
 class Student(models.Model):
-    user = models.OneToOneField(
-        'user.AppUser',
-        on_delete=models.CASCADE,
-        primary_key=True,
-        default='student',
-    )
+    user = models.OneToOneField('app_user.User', on_delete=models.CASCADE)
 
-    school = models.ForeignKey(
+    school = models.ManyToManyField(
         'school.School',
-        on_delete=models.CASCADE,
-        blank=True,)
+        blank=True, )
 
-    major = models.ForeignKey(
+    major = models.ManyToManyField(
         'school.Major',
-        on_delete=models.CASCADE,
-        blank=True,)
-
-
-
+        blank=True, )

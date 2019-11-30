@@ -1,14 +1,9 @@
 {% extends "welcomepage/welcomepage.html" %}
 
-{% block title %}Create an Account{% endblock %}
-{% load crispy_forms_tags %}
 {% block content %}
-    <form method="POST" class="form-group">
-        {% csrf_token %}
-<!--   Using crispy to make the form look nicer    -->
-        {{form|crispy}}
-        <button type="submit" class="btn btn-success">Sign up</button>
-    </form>
+  <h2>Sign up</h2>
+  <p class="lead">Select below the type of account you want to create</p>
+  <a href="{% url 'student_register' %}" class="btn btn-student btn-lg" role="button">I'm a student</a>
+  <a href="{% url 'mentor_register' %}" class="btn btn-student btn-lg" role="button">I'm a mentor</a>
 {% endblock %}
-
 

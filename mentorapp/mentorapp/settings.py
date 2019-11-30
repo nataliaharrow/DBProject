@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # Built-in apps
     'django.contrib.admin',
-    'django.contrib.auth', #django authenticates the user
+    'django.contrib.auth', #django authenticates the app_user
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -43,14 +43,16 @@ INSTALLED_APPS = [
     'company.apps.CompanyConfig',
     'connection.apps.ConnectionConfig',
     'industry.apps.IndustryConfig',
-    'user.apps.UserConfig',
+    'app_user.apps.AppUserConfig',
     'user_profile.apps.UserProfileConfig',
     'mainpage.apps.MainpageConfig',
     'mentor.apps.MentorConfig',
+    'mentor_profile.apps.MentorProfileConfig',
     'mentorsearch.apps.MentorsearchConfig',
     'register.apps.RegisterConfig',
     'school.apps.SchoolConfig',
     'student.apps.StudentConfig',
+    'student_profile.apps.StudentProfileConfig',
     'welcomepage.apps.WelcomepageConfig',
 ]
 
@@ -133,9 +135,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+AUTH_USER_MODEL = 'app_user.User'
+
 STATIC_URL = '/static/'
 # Define what CSS framework crispy_form is going to use
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # where ulpoaded files will be saved
+MEDIA_URL = '/media/'
 
 # Add redirect to homepage whenever we log in
 LOGIN_REDIRECT_URL = "/mainpage"
