@@ -40,19 +40,11 @@ INSTALLED_APPS = [
 
     # 3rd party apps
     'crispy_forms',
-    'company.apps.CompanyConfig',
     'connection.apps.ConnectionConfig',
-    'industry.apps.IndustryConfig',
     'app_user.apps.AppUserConfig',
     'user_profile.apps.UserProfileConfig',
     'mainpage.apps.MainpageConfig',
-    'mentor.apps.MentorConfig',
-    'mentor_profile.apps.MentorProfileConfig',
-    'mentorsearch.apps.MentorsearchConfig',
     'register.apps.RegisterConfig',
-    'school.apps.SchoolConfig',
-    'student.apps.StudentConfig',
-    'student_profile.apps.StudentProfileConfig',
     'welcomepage.apps.WelcomepageConfig',
 ]
 
@@ -147,4 +139,4 @@ MEDIA_URL = '/media/'
 # Add redirect to homepage whenever we log in
 LOGIN_REDIRECT_URL = "/mainpage"
 
-LOGOUT_REDIRECT_URL = "/welcomepage"
+LOGOUT_REDIRECT_URL = "/mainpage"

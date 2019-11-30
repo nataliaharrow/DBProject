@@ -24,6 +24,7 @@
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            {% if user.is_authenticated %}
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav">
                     <a href="#" class="nav-item nav-link active">Home</a>
@@ -34,6 +35,19 @@
                     <a href="/logout" class="nav-item nav-link">Log out</a>
                 </div>
             </div>
+            {% else %}
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav">
+                    <a href="#" class="nav-item nav-link active">About Us</a>
+                    <a href="#" class="nav-item nav-link active">Students</a>
+                    <a href="#" class="nav-item nav-link active">Mentors</a>
+                </div>
+                <div class="navbar-nav ml-auto">
+                    <a href="/login" class="nav-item nav-link">Login</a>
+                    <a href="/register" class="nav-item nav-link">Register</a>
+                </div>
+            </div>
+            {% endif %}
         </nav>
     </div>
     <div id="content", name="content", class="main">
@@ -43,6 +57,7 @@
                 {% if user.is_authenticated %}
                     {% block content %}
                         {{ user.username }}
+                    MAIN PAGE
                     {% endblock %}
                 {% else %}
                     <p>Login<a href="/login"> here</a> </p>
@@ -52,9 +67,6 @@
     </div>
     </body>
 </html>
-
-
-
 
 
 

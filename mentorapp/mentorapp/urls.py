@@ -22,11 +22,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', include("django.contrib.auth.urls")), # gives access to django log-in/out pages
     path('', include('register.urls')),
-    path('welcomepage/', include('welcomepage.urls')),
+    # path('welcomepage/', include('welcomepage.urls')),
     path('mainpage/', include('mainpage.urls')),
     path('admin/', admin.site.urls),
-    path('mentorsearch/', include('mentorsearch.urls')),
-    path('student_profile/', include('student_profile.urls')),
     path('profile/', include('user_profile.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
