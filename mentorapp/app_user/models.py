@@ -131,6 +131,12 @@ class User(AbstractUser):
     schools = models.ManyToManyField(School)
     majors = models.ManyToManyField(Major) # <--- should have a constraint that there can't be more than 2 majors
     companies = models.ManyToManyField(Company)
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.first_name + ' ' + self.last_name
+
 
 
 class Mentor(models.Model):
