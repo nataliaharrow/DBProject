@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class Industry(models.Model):
+    DEFAULT = '--'
     INDUSTRY = 'IY'
     ACCOUNTING = 'AC'
     AIRLINES = 'AR'
@@ -27,7 +28,7 @@ class Industry(models.Model):
     TRANSPORTATION = 'TR'
 
     INDUSTRY_TYPE_CHOICES = [
-        (INDUSTRY, 'Industry'),
+        (DEFAULT,'--'),
         (ACCOUNTING, 'Accounting'),
         (AIRLINES, 'Airlines'),
         (AGRICULTURE, 'Agriculture'),
@@ -63,20 +64,20 @@ class Company(models.Model):
 
 
 class Request(models.Model):
-    RESUME = 'RS'
-    NETWORKING = 'NT'
-    INTERVIEW = 'IN'
-    ADVICE = 'AD'
-    JOB_SEARCH = 'JB'
-    COVER_LETTER = 'CV'
-    LINKEDIN = 'LI'
-    PORTFOLIO = 'PR'
+    RESUME = 'Resume'
+    NETWORKING = 'Networking'
+    INTERVIEW = 'Interview'
+    ADVICE = 'Career Advice'
+    JOB_SEARCH = 'Job Search'
+    COVER_LETTER = 'Covder Letter'
+    LINKEDIN = 'LinkedIn'
+    PORTFOLIO = 'Portfolio'
 
     REQUEST_TYPE_CHOICES = [
         (RESUME, 'Resume'),
         (NETWORKING, 'Networking'),
         (INTERVIEW, 'Interview'),
-        (ADVICE, 'AD'),
+        (ADVICE, 'Career Advice'),
         (JOB_SEARCH, 'Job Search'),
         (COVER_LETTER, 'Cover Letter'),
         (LINKEDIN, 'LinkedIn'),
@@ -84,18 +85,38 @@ class Request(models.Model):
     ]
 
     request_type_name = models.CharField(
-        max_length=2,
+        max_length=20,
         choices=REQUEST_TYPE_CHOICES,
     )
 
+    def __str__(self):
+        return f'{self.request_type_name})'
+
 
 class School(models.Model):
-    school_name = models.CharField(max_length=30)
+    DEFAULT = '--'
+    COLUMBIA = 'CL'
+    CITY_COLLEGE = 'CC'
+    HARVARD = 'HR'
+    YALE = 'YL'
+
+    SCHOOL_CHOICES = [
+        (DEFAULT, '--'),
+        (COLUMBIA, 'Columbia University'),
+        (CITY_COLLEGE, 'CUNY City College'),
+        (HARVARD, 'Harvard University'),
+        (YALE, 'Yale University'),
+    ]
+    school_name = models.CharField(max_length=30, choices=SCHOOL_CHOICES)
     school_address = models.CharField(max_length=200)
+
+    def __str__(self):
+        return f'{self.school_name})'
 
 
 # Majors (majorId, majorName)
 class Major(models.Model):
+    DEFAULT = '--'
     ART = 'AR'
     BUSINESS = 'BI'
     CIVIL_ENGINEERING = 'CE'
@@ -107,6 +128,7 @@ class Major(models.Model):
     MUSIC = 'MU'
 
     MAJOR_CHOICES = [
+        (DEFAULT, '--'),
         (ART, 'Art'),
         (BUSINESS, 'Business'),
         (CIVIL_ENGINEERING, 'Civil Engineering'),
@@ -123,15 +145,14 @@ class Major(models.Model):
         choices=MAJOR_CHOICES,
     )
 
-
 class User(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_mentor = models.BooleanField(default=False)
     requests = models.ManyToManyField(Request)
     schools = models.ManyToManyField(School)
-    majors = models.ManyToManyField(Major) # <--- should have a constraint that there can't be more than 2 majors
+    majors = models.ManyToManyField(Major)
     companies = models.ManyToManyField(Company)
-
+    industries = models.ManyToManyField(Industry)
 
 class Mentor(models.Model):
     user = models.OneToOneField('app_user.User', on_delete=models.CASCADE)
