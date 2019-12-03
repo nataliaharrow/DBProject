@@ -6,15 +6,67 @@
         <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
         <div class="media-body">
             {% if user.is_authenticated and user.is_student %}
-              <h1>you are a student</h1>
-                {{ user.username }}
-                {{ user.first_name }}
-                {{ user.last_name }}
+            <img class="rounded-circle account-img" src="{{ user_profile.user.image.url }}">
+              <h2>You are registered as a student</h2>
+                <p>
+                    Username:
+                    {{ user.username }}
+                </p>
+                <p>
+                    Name:
+                    {{ user.first_name }}
+                </p>
+                <p>
+                    Last name:
+                    {{ user.last_name }}
+                </p>
+                <p>
+                    Email:
+                    {{ user.email }}
+                </p>
+                <p>
+                    School:
+                </p>
+                <p>
+                    Major:
+                </p>
+                <p>
+                    Industry Interests:
+                </p>
+                <p>
+                    Requests:
+                </p>
              {% elif user.is_authenticated and user.is_mentor %}
-              <h1>you are a mentor</h1>
-                {{ user.username }}
-                {{ user.first_name }}
-                {{ user.last_name }}
+            <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+               <h2>You are registered as a mentor</h2>
+                <p>
+                    Username:
+                    {{ user.username }}
+                </p>
+                <p>
+                    Name:
+                    {{ user.first_name }}
+                </p>
+                <p>
+                    Last name:
+                    {{ user.last_name }}
+                </p>
+                <p>
+                    Email:
+                    {{ user.email }}
+                </p>
+                <p>
+                    School:
+                </p>
+                <p>
+                    Major:
+                </p>
+                <p>
+                    Industry:
+                </p>
+                <p>
+                    Willing to help with:
+                </p>
             {% else %}
             <p>Login<a href="/login"> here</a> </p>
             {% endif %}
