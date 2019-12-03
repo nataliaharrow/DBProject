@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'mainpage.apps.MainpageConfig',
     'register.apps.RegisterConfig',
     'welcomepage.apps.WelcomepageConfig',
+    'search.apps.SearchConfig',
 ]
 
 MIDDLEWARE = [
@@ -84,9 +85,9 @@ WSGI_APPLICATION = 'mentorapp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'USER': 'natalia',
-        'NAME': 'mentorapp',
+        'ENGINE': 'django.db.backends.sqlite3',
+        #'USER': 'terri',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

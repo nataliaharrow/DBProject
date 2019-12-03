@@ -133,6 +133,7 @@ class User(AbstractUser):
     companies = models.ManyToManyField(Company)
 
 
+
 class Mentor(models.Model):
     user = models.OneToOneField('app_user.User', on_delete=models.CASCADE)
 
