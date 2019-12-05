@@ -6,7 +6,7 @@
         <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
         <div class="media-body">
             {% if user.is_authenticated and user.is_student %}
-            <img class="rounded-circle account-img" src="{{ user_profile.user.image.url }}">
+            <img class="rounded-circle account-img" src="{{ request.user.userprofile.image.url }}">
               <h2>You are registered as a student</h2>
                 <p>
                     Username:
@@ -37,7 +37,7 @@
                     Requests:
                 </p>
              {% elif user.is_authenticated and user.is_mentor %}
-            <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+            <img class="rounded-circle account-img" src="{{ request.user.userprofile.image.url }}">
                <h2>You are registered as a mentor</h2>
                 <p>
                     Username:

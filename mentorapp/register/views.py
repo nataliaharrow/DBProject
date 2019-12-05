@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import StudentRegisterForm, MentorRegisterForm
 from app_user.models import Student
-from app_user.models import Mentor
+from app_user.models import Mentor, School
 from user_profile.models import UserProfile
 
 

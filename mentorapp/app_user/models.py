@@ -145,6 +145,7 @@ class Major(models.Model):
         choices=MAJOR_CHOICES,
     )
 
+
 class User(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_mentor = models.BooleanField(default=False)
@@ -154,12 +155,10 @@ class User(AbstractUser):
     companies = models.ManyToManyField(Company)
     industries = models.ManyToManyField(Industry)
 
+
 class Mentor(models.Model):
     user = models.OneToOneField('app_user.User', on_delete=models.CASCADE)
 
 
 class Student(models.Model):
     user = models.OneToOneField('app_user.User', on_delete=models.CASCADE)
-
-
-
