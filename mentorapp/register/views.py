@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import StudentRegisterForm, MentorRegisterForm
-from app_user.models import Student
-from app_user.models import Mentor
-from user_profile.models import UserProfile
+from app_user.models import User, UserProfile, School, Major, Company, Industry, Request, UserSchool, UserMajor, UserCompany, UserIndustry, UserRequest, Connection, CompanyIndustry
 
 
 def register(request):
@@ -16,8 +14,6 @@ def student_register(request):
             user = student_form.save(commit=False)
             user.is_student = True
             user.save()
-            new_student = Student.objects.create(user=user)
-            new_student.save()
             user_profile = UserProfile.objects.create(user=user)
             user_profile.save()
     else:
@@ -32,8 +28,8 @@ def mentor_register(request):
             user = mentor_form.save(commit=False)
             user.is_mentor = True
             user.save()
-            new_mentor = Mentor.objects.create(user=user)
-            new_mentor.save()
+            user_profile = UserProfile.objects.create(user=user)
+            user_profile.save()
     else:
         mentor_form = MentorRegisterForm()
     return render(request, "register/mentor_register.html", {"mentor_form": mentor_form})

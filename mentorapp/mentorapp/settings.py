@@ -38,14 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Custom apps
+    'connection',
+    'app_user',
+    'user_profile',
+    'mainpage',
+    'register',
+    'welcomepage',
+
     # 3rd party apps
     'crispy_forms',
-    'connection.apps.ConnectionConfig',
-    'app_user.apps.AppUserConfig',
-    'user_profile.apps.UserProfileConfig',
-    'mainpage.apps.MainpageConfig',
-    'register.apps.RegisterConfig',
-    'welcomepage.apps.WelcomepageConfig',
+    
 ]
 
 MIDDLEWARE = [
@@ -89,6 +92,14 @@ DATABASES = {
         'NAME': 'mentorapp',
     }
 }
+
+# for terri, florence:
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 # Password validation
