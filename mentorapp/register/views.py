@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import StudentRegisterForm, MentorRegisterForm
-from app_user.models import User, UserProfile, School, Major, Company, Industry, Request, UserSchool, UserMajor, UserCompany, UserIndustry, UserRequest, Connection, CompanyIndustry
+from app_user.models import User, UserProfile, School, Major, Company, Industry, Request #, UserSchool, UserMajor, UserCompany, UserIndustry, UserRequest, Connection, CompanyIndustry
 
 
 def register(request):
@@ -13,7 +13,15 @@ def student_register(request):
         if student_form.is_valid():
             user = student_form.save(commit=False)
             user.is_student = True
+            # school = School.objects.all()[int(student_form.cleaned_data["school"]) - 1]
+            major_save = Major.objects.all()[int(student_form.cleaned_data["major"]) - 1]
+            industry = Industry.objects.all()[int(student_form.cleaned_data["industry"]) - 1]
+            requests = student_form.cleaned_data["requests"]
             user.save()
+            user.majors.add(major_save)
+            user.industries.add(industry)
+            for new_request in requests:
+                user.requests.add(new_request)
             user_profile = UserProfile.objects.create(user=user)
             user_profile.save()
     else:
@@ -27,7 +35,16 @@ def mentor_register(request):
         if mentor_form.is_valid():
             user = mentor_form.save(commit=False)
             user.is_mentor = True
+            major_save = Major.objects.all()[int(mentor_form.cleaned_data["major"]) - 1]
+            industry = Industry.objects.all()[int(mentor_form.cleaned_data["industry"]) - 1]
+            requests = mentor_form.cleaned_data["requests"]
+            company = mentor_form.cleaned_data["company"]
             user.save()
+            user.majors.add(major_save)
+            user.industries.add(industry)
+            user.companies.add(company)
+            for new_request in requests:
+                user.requests.add(new_request)
             user_profile = UserProfile.objects.create(user=user)
             user_profile.save()
     else:
