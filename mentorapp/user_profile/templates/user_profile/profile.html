@@ -29,12 +29,21 @@
                 </p>
                 <p>
                     Major:
+                    {% for major in user.majors.all %}
+                       {{ major }}
+                    {% endfor %}
                 </p>
                 <p>
                     Industry Interests:
+                    {% for industry in user.industries.all %}
+                       {{ industry }}
+                    {% endfor %}
                 </p>
                 <p>
                     Requests:
+                    {% for request in user.requests.all %}
+                       {{ request }}
+                    {% endfor %}
                 </p>
              {% elif user.is_authenticated and user.is_mentor %}
             <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
@@ -55,17 +64,33 @@
                     Email:
                     {{ user.email }}
                 </p>
+                </p>
                 <p>
                     School:
                 </p>
                 <p>
                     Major:
+                    {% for major in user.majors.all %}
+                       {{ major }}
+                    {% endfor %}
                 </p>
                 <p>
-                    Industry:
+                    Industries:
+                    {% for industry in user.industries.all %}
+                       {{ industry }}
+                    {% endfor %}
                 </p>
                 <p>
-                    Willing to help with:
+                    Requests:
+                    {% for request in user.requests.all %}
+                       {{ request }}
+                    {% endfor %}
+                </p>
+                <p>
+                    Company:
+                    {% for company in user.companies.all %}
+                       {{ company }}
+                    {% endfor %}
                 </p>
             {% else %}
             <p>Login<a href="/login"> here</a> </p>
