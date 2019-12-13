@@ -3,7 +3,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 # to import from this:
-# from app_user.models import User, UserProfile, School, Major, Company, Industry, Request, UserSchool, UserMajor, UserCompany, UserIndustry, UserRequest, Connection, CompanyIndustry
+# from app_user.models import *
+#  User, UserProfile, School, Major, Company, Industry, Request, UserSchool, UserMajor, UserCompany, UserIndustry, UserRequest, Connection, CompanyIndustry
 from django.db import models
 
 
@@ -121,7 +122,7 @@ class Connection(models.Model):
 
     request_from = models.CharField(
         max_length=1,
-        choices=STATUS_CHOICES,
+        choices=REQUEST_FROM_CHOICES,
         default=None,
         null=True
     )
