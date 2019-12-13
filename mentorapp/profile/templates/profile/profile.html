@@ -1,12 +1,15 @@
 {% extends "home/home.html" %}
 {% load crispy_forms_tags %}
+
+
 {% block content %}
     <div class="content-section">
         <div class="media">
         {% comment %} <img class="rounded-circle account-img" src="{{ user.profile.image.url }}"> {% endcomment %}
         <div class="media-body">
+            <img src="{{ profile.image.url }}" width="60%" height="60%">
             {% if user.is_authenticated and user.is_student %}
-            <img class="rounded-circle account-img" src="{{ user_profile.user.image.url }}">
+        
                 <div class="profile-details">
                 <h2>You are registered as a student</h2>
                     <p>
@@ -15,21 +18,26 @@
                     </p>
                     <p>
                         Name:
-                        {{ user.first_name }}
-                    </p>
-                    <p>
-                        Last name:
-                        {{ user.last_name }}
+                        {{ user.first_name }} {{ user.last_name }}
                     </p>
                     <p>
                         Email:
                         {{ user.email }}
                     </p>
                     <p>
+                        Link:
+                        {{ profile.website }}
+                    </p>
+                    <p>
+                        Bio:
+                        {{ profile.bio }}
+                    </p>
+                    <p>
                         School:
                         {% for school in user.school.all %}
-                        {{ school }}
-                        {% endfor %}                        
+                        {{ school }} 
+                        {% endfor %}  
+                                            
                     </p>
                     <p>
                         Major:
@@ -51,7 +59,6 @@
                     </p>
                 </div>
             {% elif user.is_authenticated and user.is_mentor %}
-            <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
                 <div class="profile-details">
                 <h2>You are registered as a mentor</h2>
                     <p>

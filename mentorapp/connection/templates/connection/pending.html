@@ -54,9 +54,7 @@
 
 {% elif user.is_mentor %}
 {% if connections %}
-    <h4>You are a mentor</h4>
         <table id = "connection-table" class="table table-condensed table-hover table-striped ng-table">
-        <h4>Connections:</h4>
             <tr class = "table_header">
             <th></th>
             <th>Name</th>
@@ -66,7 +64,7 @@
         
         {% for pending in connections %}
         <tr>
-            <td><img src="{{ pending.mentor.profile.}}" alt="" height=100 width=100 class="thumbnail"></img></td>
+            <td><img src="{{ pending.mentor.profile.}}" alt="" height=50 width=50 class="thumbnail"></img></td>
             <td class = "name"><a href="{% url "profile" pending.student.pk %}"> {{ pending.student.first_name }}{{ pending.student.last_name }}</a></td>
             <td class = "bio">{{ pending.student.profile.bio }}</td>
             <td> 
