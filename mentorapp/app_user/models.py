@@ -4,68 +4,61 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 # to import from this:
 # from app_user.models import *
-#  User, UserProfile, School, Major, Company, Industry, Request, UserSchool, UserMajor, UserCompany, UserIndustry, UserRequest, Connection, CompanyIndustry
+#  User, Profile, School, Major, Company, Industry, Request, UserSchool, UserMajor, UserCompany, UserIndustry, UserRequest, Connection, CompanyIndustry
 from django.db import models
 
 
 class Industry(models.Model):
 
-    industry_type_name = models.CharField(
-        max_length=25,
-    )
+    name = models.CharField(max_length=30)
 
     def __str__(self):
-        return f'{self.industry_type_name}'
+        return f'{self.name}'
 
 
 class Company(models.Model):
-    company_name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30)
 
     def __str__(self):
-        return f'{self.company_name}'
+        return f'{self.name}'
 
 
 class Request(models.Model):
 
-    request_type_name = models.CharField(
-        max_length=20,
-    )
+    name = models.CharField(max_length=30)
 
     def __str__(self):
-        return f'{self.request_type_name}'
+        return f'{self.name}'
 
 
 class School(models.Model):
 
-    school_name = models.CharField(max_length=30)
-    school_address = models.CharField(max_length=200)
+    name = models.CharField(max_length=30)
 
     def __str__(self):
-        return f'{self.school_name}'
+        return f'{self.name}'
 
 
 class Major(models.Model):
 
-    major_name = models.CharField(
-        max_length=30,
-    )
+    name = models.CharField(max_length=30)
 
     def __str__(self):
-        return f'{self.major_name}'
+        return f'{self.name}'
 
 
 class User(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_mentor = models.BooleanField(default=False)
-    requests = models.ManyToManyField(Request)
-    schools = models.ManyToManyField(School)
-    majors = models.ManyToManyField(Major)
-    companies = models.ManyToManyField(Company)
-    industries = models.ManyToManyField(Industry)
+    requests = models.ManyToManyField(Request, null=True)
+    schools = models.ManyToManyField(School, null=True)
+    majors = models.ManyToManyField(Major, null=True)
+    companies = models.ManyToManyField(Company, null=True)
+    industries = models.ManyToManyField(Industry, null=True)
     position = models.CharField(max_length=20, null=True)
 
 
-class UserProfile(models.Model):
+class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(
         default='',

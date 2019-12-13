@@ -1,0 +1,91 @@
+{% extends 'home/home.html' %}
+
+{% block title %}<h4>Pending Connections</h4><br>{% endblock %}
+
+{% block content %}
+
+{% if user.is_student %}
+{% if connections %}
+
+    {% comment %} <div class="connection-profile">
+        <div class="media">
+        <img src="{{ pending.mentor.profile.}}" alt="" height=100 width=100 class="thumbnail"></img>
+        <div>
+            <h4><a href="{% url "profile" pending.mentor.pk %}"> {{ pending.mentor.first_name }}{{ pending.mentor.last_name }}</a></h4>
+            <p class="company">
+                {% for company in pending.mentor.companies.all %}
+                {{ company }}
+                {% endfor %}
+            </p>
+            <p class="request">
+                {% for request in pending.mentor.userRequest.all %}
+                {{ request }}
+                {% endfor %}
+            </p>
+        </div> {% endcomment %}
+    <table id = "connection-table" class="table table-condensed table-hover table-striped ng-table">
+            <tr class = "table_header">
+            <th></th>
+            <th>Name</th>
+            <th>Bio</th>
+            <th>Accept or Decline</th>
+        </tr>
+        
+        {% for pending in connections %}
+        <tr>
+            <td><img src="{{ pending.mentor.profile.}}" alt="" height=100 width=100 class="thumbnail"></img></td>
+            <td class = "name"><a href="{% url "profile" pending.mentor.pk %}"> {{ pending.mentor.first_name }}{{ pending.mentor.last_name }}</a></td>
+            <td class = "bio">{{ pending.mentor.profile.bio }}</td>
+            <td> 
+                <form method="POST" action="{% url "connections" %}">
+                {% csrf_token %}
+                <input name="task" type="hidden" value="edit_connection"></input>
+                <input class="user_id" name="other_user_id" type="hidden" value="{{ pending.id }}"></input>
+                <input class = "accept_btn" name = "action" type="submit" value="Accept"></input>
+                <input class = "decline_btn" name = "action" type="submit" value="Decline"></input> 
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>You have no pending connections! Go to Search to find users to connect with.</p>
+{% endif %} 
+
+{% elif user.is_mentor %}
+{% if connections %}
+    <h4>You are a mentor</h4>
+        <table id = "connection-table" class="table table-condensed table-hover table-striped ng-table">
+        <h4>Connections:</h4>
+            <tr class = "table_header">
+            <th></th>
+            <th>Name</th>
+            <th>Bio</th>
+            <th>Accept or Decline</th>
+        </tr>
+        
+        {% for pending in connections %}
+        <tr>
+            <td><img src="{{ pending.mentor.profile.}}" alt="" height=100 width=100 class="thumbnail"></img></td>
+            <td class = "name"><a href="{% url "profile" pending.student.pk %}"> {{ pending.student.first_name }}{{ pending.student.last_name }}</a></td>
+            <td class = "bio">{{ pending.student.profile.bio }}</td>
+            <td> 
+                <form method="POST" action="{% url "pending" %}">
+                {% csrf_token %}
+                <input name="task" type="hidden" value="edit_connection"></input>
+                <input class="user_id" name="other_user_id" type="hidden" value="{{ pending.id }}"></input>
+                <input class = "accept_btn" name = "action" type="submit" value="Accept"></input>
+                <input class = "decline_btn" name = "action" type="submit" value="Decline"></input> 
+                </form>
+            </td>  
+        </tr>
+        {% endfor %}
+
+        </table>
+{% else %}
+    <p>You have no pending connections! Go to Search to find users to connect with.</p>
+{% endif %} 
+
+{% endif %}
+
+{% endblock %}

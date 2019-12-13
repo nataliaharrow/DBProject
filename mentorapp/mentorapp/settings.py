@@ -41,10 +41,9 @@ INSTALLED_APPS = [
     # Custom apps
     'connection',
     'app_user',
-    'user_profile',
-    'mainpage',
+    'profile',
+    'home',
     'register',
-    'welcomepage',
 
     # 3rd party apps
     'crispy_forms',
@@ -66,7 +65,9 @@ ROOT_URLCONF = 'mentorapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,21 +86,21 @@ WSGI_APPLICATION = 'mentorapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'USER': 'natalia',
-        'NAME': 'mentorapp',
-    }
-}
-
-# for terri, florence:
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         'ENGINE': 'django.db.backends.mysql',
+#         'USER': 'natalia',
+#         'NAME': 'mentorapp',
 #     }
 # }
+
+# for terri, florence:
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 
 # Password validation
@@ -148,6 +149,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # where ulpoaded files will be save
 MEDIA_URL = '/media/'
 
 # Add redirect to homepage whenever we log in
-LOGIN_REDIRECT_URL = "/mainpage"
+LOGIN_REDIRECT_URL = "/home"
 
-LOGOUT_REDIRECT_URL = "/mainpage"
+LOGOUT_REDIRECT_URL = "/home"

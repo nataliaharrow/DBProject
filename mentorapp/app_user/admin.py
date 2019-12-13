@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import User, UserProfile, School, Major, Company, Industry, Request, Connection #, UserSchool, UserMajor, UserCompany, UserIndustry, UserRequest, CompanyIndustry
+from .models import User, Profile, School, Major, Company, Industry, Request, Connection #, UserSchool, UserMajor, UserCompany, UserIndustry, UserRequest, CompanyIndustry
 
 admin.site.register(User)
 admin.site.register(Request)

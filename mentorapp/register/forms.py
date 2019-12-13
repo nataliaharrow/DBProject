@@ -3,7 +3,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.db import models
 from django import forms
 from app_user.models import User, School, Industry, Major, Request, Company
-from django.db.utils import OperationalError, ProgrammingError
 
 
 # from crispy_forms.helper import FormHelper
@@ -14,82 +13,60 @@ class StudentRegisterForm(UserCreationForm):
     email = models.EmailField()
 
     try:
-        school = forms.CharField(label='School', widget=forms.Select(
-            choices=School.objects.all().values_list('id', 'school_name')), required=True)
-    except OperationalError:
-        school = forms.CharField(max_length=20, required=False)
-    except ProgrammingError:
-        school = forms.CharField(max_length=20, required=False)
+        school = forms.CharField(max_length=30, required=True, label='School')
+    except:
+        school = forms.CharField(max_length=30, required=False)
 
     try:
-        major = forms.CharField(label='Major', widget=forms.Select(
-            choices=Major.objects.all().values_list('id', 'major_name')), required=True)
-    except OperationalError:
-        major = forms.CharField(max_length=20, required=False)
-    except ProgrammingError:
-        major = forms.CharField(max_length=20, required=False)
+        major = forms.CharField(max_length=30, required=True, label='Major')
+    except:
+        major = forms.CharField(max_length=30, required=False)
 
     try:
-        industry = forms.CharField(label='Industry', widget=forms.Select(
-            choices=Industry.objects.all().values_list('id', 'industry_type_name')), required=True)
-    except OperationalError:
-        industry = forms.CharField(max_length=20, required=False)
-    except ProgrammingError:
-        industry = forms.CharField(max_length=20, required=False)
+        industry = forms.CharField(max_length=30, required=False, label='Industry')
+    except:
+        industry = forms.CharField(max_length=30, required=False)
 
-    requests = forms.ModelMultipleChoiceField(queryset=Request.objects.all(), widget=forms.CheckboxSelectMultiple,
-                                            required=True, label='What you need help with:')
+    # requests = forms.ModelMultipleChoiceField(queryset=Request.objects.all(), widget=forms.CheckboxSelectMultiple,
+    #                                         required=True, label='What you need help with:')
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ["username", "email", "first_name", "last_name", "password1", "password2", "school", "major",
-                  "requests", "industry"]
+        fields = ["username", "email", "first_name", "last_name", "password1", "password2", "school", "major", "industry"]
 
 
 class MentorRegisterForm(UserCreationForm):
     email = models.EmailField()
-    # company = forms.CharField(max_length=25, required=True)
+
     positions = forms.CharField(max_length=25, required=True, label='Position')
 
     try:
-        school = forms.CharField(label='School', widget=forms.Select(
-            choices=School.objects.all().values_list('id', 'school_name')), required=True)
-    except OperationalError:
-        school = forms.CharField(max_length=20, required=False)
-    except ProgrammingError:
+        school = forms.CharField(max_length=20, required=False, label='School')
+    except:
         school = forms.CharField(max_length=20, required=False)
 
     try:
-        major = forms.CharField(label='Major', widget=forms.Select(
-            choices=Major.objects.all().values_list('id', 'major_name')), required=True)
-    except OperationalError:
-        major = forms.CharField(max_length=20, required=False)
-    except ProgrammingError:
+        major = forms.CharField(max_length=20, required=False, label='Major')
+    except:
         major = forms.CharField(max_length=20, required=False)
 
     try:
-        industry = forms.CharField(label='Industry', widget=forms.Select(
-            choices=Industry.objects.all().values_list('id', 'industry_type_name')), required=True)
-    except OperationalError:
-        industry = forms.CharField(max_length=20, required=False)
-    except ProgrammingError:
+        industry = forms.CharField(max_length=20, required=True, label='Industry')
+    except:
         industry = forms.CharField(max_length=20, required=False)
 
     try:
-        company = forms.CharField(label='Company', widget=forms.Select(
-            choices=Company.objects.all().values_list('id', 'company_name')), required=True)
-    except OperationalError:
-        company = forms.CharField(max_length=20, required=False)
-    except ProgrammingError:
+        company = forms.CharField(max_length=20, required=True, label='Company')
+
+    except:
         company = forms.CharField(max_length=20, required=False)
 
-    requests = forms.ModelMultipleChoiceField(queryset=Request.objects.all(), widget=forms.CheckboxSelectMultiple,
-                                              required=True, label='What you need help with:')
+    # requests = forms.ModelMultipleChoiceField(queryset=Request.objects.all(), widget=forms.CheckboxSelectMultiple,
+    #                                           required=True, label='What you can help with:')
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ["username", "email", "first_name", "last_name", "password1", "password2", "school", "major",
-                  "requests", "industry", "company", "positions"]
+        fields = ["username", "email", "first_name", "last_name", "password1", "password2", "school", "major", "industry", "company", "positions"]
 
 
 

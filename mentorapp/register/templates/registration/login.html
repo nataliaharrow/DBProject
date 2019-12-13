@@ -1,4 +1,4 @@
-{% extends "welcomepage/welcomepage.html" %}
+{% extends "home/home.html" %}
 
 {% load crispy_forms_tags %}
 
@@ -7,7 +7,7 @@
         {% csrf_token %}
     <!--display the form -->
         {{form|crispy}}
-        <p>Don't have an accout? Create one <a href="/register">here</a></p>
+        <p>Don't have an account? Sign up <a href="/register">here</a></p>
         <button type="submit" class="btn btn-success">Login</button>
 
     </form>

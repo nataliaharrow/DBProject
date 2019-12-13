@@ -1,0 +1,67 @@
+{% extends "home/home.html" %}
+
+{% block title %}<h4>Connections</h4><br>{% endblock %}
+
+{% block content %}
+
+{% if user.is_student %}
+
+    {% if connections %}
+        <table id = "connection-table" class="table table-condensed table-hover table-striped ng-table">
+            <tr class = "table_header">
+                <th>Username</th>
+                <th>Name</th>
+                <th>Remove</th>
+            </tr>
+            
+            {% for current in connections %}
+            <tr>
+                <td class = "username">{{ current.mentor.id }}</td>
+                <td class = "name">{{ current.mentor.username }}</td>
+                <td> 
+                    <form method="POST" action="{% url "connections" %}">
+                    {% csrf_token %}
+                    <input class="user_id" name="task" type="hidden" value="edit_connection"></input>
+                    <input class="user_id" name="user_id" type="hidden" value="{{ current.mentor.id }}"></input>
+                    <input class = "approve_button" name = "action" type="submit" value="Remove"></input>
+                    </form>
+                </td>  
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    {% else %}
+        <p>You have no connections! Go to Search to find users to connect with.</p>
+    {% endif %} 
+
+{% elif user.is_mentor %}
+    <h4>You are a mentor</h4>
+        <table id = "connection-table" class="table table-condensed table-hover table-striped ng-table">
+        <h4>Connections:</h4>
+             <tr class = "table_header">
+            <th>Username</th>
+            <th>Name</th>
+            <th>Remove</th>
+        </tr>
+        
+        {% for current in connections %}
+        <tr>
+            <td class = "username">{{ current.student.username }}</td>
+            <td class = "name">{{ current.student.first_name }} {{ current.student.last_name }}</td>
+            <td> 
+                <form method="POST" action="{% url "connections" %}">
+                {% csrf_token %}
+                <input class="user_id" name="task" type="hidden" value="edit_connection"></input>
+                <input class="user_id" name="user_id" type="hidden" value="{{ current.student.id }}"></input>
+                <input class = "approve_button" name = "action" type="submit" value="Remove"></input>
+                </form>
+            </td>  
+        </tr>
+        {% endfor %}
+
+        </table>
+
+{% endif %}
+
+{% endblock %}
