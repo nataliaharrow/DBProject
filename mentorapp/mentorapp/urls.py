@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include("django.contrib.auth.urls")), # gives access to django log-in/out pages
+    path('', include("django.contrib.auth.urls")), # gives access to django log-in/out pages
     path('', include('register.urls')),
     path('home/', include('home.urls')),
 
