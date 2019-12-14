@@ -16,11 +16,15 @@
                 <br>
                 <a href ='{% url "edit" %}' class="btn btn-primary btn-sm">Edit Profile</a>          
             {% elif user.id != pk %}
-                <form method="POST" action="{% url "profile" pk %}">
-                {% csrf_token %}
-                <input name="user_id" type="hidden" value="{{ pk }}"></input>
-                <input class="btn btn-link btn-sm" name = "action" type="submit" value="Connect"></input>
-                </form>
+                {% if profile_connection %}
+                    <h4>You have sent a Connection Request</h4>
+                {% else %}
+                    <form method="POST" action="{% url "profile" pk %}">
+                    {% csrf_token %}
+                    <input name="user_id" type="hidden" value="{{ pk }}"></input>
+                    <input class="btn btn-primary btn-sm" name = "action" type="submit" value="Connect"></input>
+                    </form>
+                {% endif %}
             {% endif %}
         {% else %}
             <a href="/login" class="btn btn-primary btn-lg active">Login to Connect</a>
@@ -28,46 +32,46 @@
         <div class="profile-details">
         <br>
             <p>
-                Username:
+                <strong>Username:</strong>
                 {{ profile_user.username }}
             </p>
             <p>
-                Name:
+                <strong>Name:</strong>
                 {{ profile_user.first_name }} {{ profile_user.last_name }}
             </p>
             <p>
-                Email:
+                <strong>Email:</strong>
                 {{ profile_user.email }}
             </p>
             <p>
-                Link:
+                <strong>Link:</strong>
                 {{ profile.website }}
             </p>
             <p>
-                Bio:
+                <strong>Bio:</strong>
                 {{ profile.bio }}
             </p>
             <p>
-                School:
+                <strong>School:</strong>
                 {% for school in profile_user.school.all %}
                 {{ school }} 
                 {% endfor %}  
                                     
             </p>
             <p>
-                Major:
+                <strong>Major:</strong>
                 {% for major in profile_user.majors.all %}
                 {{ major }}
                 {% endfor %}
             </p>
             <p>
-                Industry Interests:
+                <strong>Industry Interests:</strong>
                 {% for industry in profile_user.industries.all %}
                 {{ industry }}
                 {% endfor %}
             </p>
             <p>
-                Requests:
+                <strong>Requests:</strong>
                 {% for request in profile_user.requests.all %}
                 {{ request }}
                 {% endfor %}
