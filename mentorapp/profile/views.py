@@ -18,12 +18,15 @@ def profile(request, pk):
     profile_user = User.objects.get(pk=pk)
     profile = Profile.objects.get(user=profile_user)
     
-    if profile_user.is_student and request.user.is_mentor:
-        profile_connection = Connection.objects.filter(student=profile_user).filter(mentor=request.user)
-    elif profile_user.is_mentor and request.user.is_student:
-        profile_connection = Connection.objects.filter(mentor=profile_user).filter(student=request.user)       
+    if request.user.is_authenticated == True:
+        if profile_user.is_student and request.user.is_mentor:
+            profile_connection = Connection.objects.filter(student=profile_user).filter(mentor=request.user)
+        elif profile_user.is_mentor and request.user.is_student:
+            profile_connection = Connection.objects.filter(mentor=profile_user).filter(student=request.user)       
+        else:
+            profile_connection = None
     else:
-        profile_connection = None
+            profile_connection = None
 
     context = { 
         'profile': profile,

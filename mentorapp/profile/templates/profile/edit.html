@@ -19,6 +19,35 @@
     margin-left: auto;
     margin-right: auto;
 }
+.inputfile {
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+.inputfile + label {
+    font-size: 1.25em;
+    font-weight: 500;
+    color: black;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    background-color: lightgray;
+    display: inline-block;
+    position: relative;
+    align-content: center;
+
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: gray;
+}
+
+
+#upload {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 </style>
 {% endblock %}
 
@@ -27,7 +56,18 @@
     <div class="content-section">
         <div class="media">
             <img src="{{ profile.image.url }}" width="60%" height="60%" class="center">
-        </div>    
+        </div>
+        <br>
+            <form method="POST" action="{% url "edit" %}" enctype="multipart/form-data">
+            {% csrf_token %}
+        <div class="center">
+            <input type="file" name="new_profile_image" id="file" class="inputfile">
+            <label for="file">Choose a file</label>
+            <button id="upload" type="submit" class="btn btn-primary btn-sm">Upload</button>
+        </div>
+            </form>
+        
+            <br>
         {% if user.is_authenticated %}
             {% if user.is_student %}
                 <h2 align="center">You are registered as a Student</h2>
