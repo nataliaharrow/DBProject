@@ -42,7 +42,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
                 <li class="nav-item active"><a href="{% url "home" %}" class="nav-link">Home</a><li>
-                <li class="nav-item"><a href="{% url "profile" %}" class="nav-link">Profile</a></li>
+                <li class="nav-item"><a href="{% url "profile" user.id %}" class="nav-link">Profile</a></li>
                 {% comment %} <a href="{% url "search" %}" class="nav-item nav-link">Search</a> {% endcomment %}
                 <li class="nav-item"><a href="{% url "connections" %}" class="nav-link">Connections</a></li>
                 <li class="nav-item"><a href="{% url "pending" %}" class="nav-link">Pending</a></li>

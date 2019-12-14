@@ -1,32 +1,19 @@
 {% extends "home/home.html" %}
 
-
 {% block content %}
     <div class="content-section">
         <div class="media">
             <img src="{{ profile.image.url }}" width="60%" height="60%">
         </div>    
         {% if user.is_authenticated %}
-            {% if user.id == pk %}
-                {% if user.is_student %}
-                    <h2>You are registered as a student</h2>
-                {% elif user.is_mentor %}
-                    <h2>You are registered as a mentor</h2>  
-                {% endif %}  
-                <br>
-                <a href ='{% url "edit" %}' class="btn btn-primary btn-sm">Edit Profile</a>          
-            {% elif user.id != pk %}
-                <form method="POST" action="{% url "profile" pk %}">
-                {% csrf_token %}
-                <input name="user_id" type="hidden" value="{{ pk }}"></input>
-                <input class="btn btn-link btn-sm" name = "action" type="submit" value="Connect"></input>
-                </form>
-            {% endif %}
-        {% else %}
-            <a href="/login" class="btn btn-primary btn-lg active">Login to Connect</a>
-        {% endif %}
+            {% if user.is_student %}
+                <h2>You are registered as a student</h2>
+            {% elif user.is_mentor %}
+                <h2>You are registered as a mentor</h2>  
+            {% endif %}  
+            <br>
+        
         <div class="profile-details">
-        <br>
             <p>
                 Username:
                 {{ user.username }}
@@ -34,45 +21,51 @@
             <p>
                 Name:
                 {{ user.first_name }} {{ user.last_name }}
+                <form method="POST" action="{% url "edit" %}">
+                {% csrf_token %}
+                <input name="new_first_name" type="text" placeholder="Edit First Name"></input>
+                <input name ="new_last_name" type="text" placeholder="Edit Last Name"></input>
             </p>
             <p>
                 Email:
                 {{ user.email }}
+                <input name="new_email" type="text" placeholder="Edit Email Address"></input>
             </p>
             <p>
                 Link:
                 {{ profile.website }}
+                <input name="new_website" type="text" placeholder="Edit Link"></input>
             </p>
             <p>
                 Bio:
                 {{ profile.bio }}
+                <input name="new_bio" type="text" placeholder="Edit Biography"></input>
             </p>
             <p>
                 School:
                 {% for school in user.school.all %}
                 {{ school }} 
                 {% endfor %}  
-                                    
+                <input name="new_school" type="text" placeholder="Add School"></input>                    
             </p>
             <p>
                 Major:
                 {% for major in user.majors.all %}
                 {{ major }}
                 {% endfor %}
+                <input name="new_school" type="text" placeholder="Add Major"></input> 
             </p>
             <p>
                 Industry Interests:
                 {% for industry in user.industries.all %}
                 {{ industry }}
                 {% endfor %}
-            </p>
-            <p>
-                Requests:
-                {% for request in user.requests.all %}
-                {{ request }}
-                {% endfor %}
+                <input name="new_industry" type="text" placeholder="Add Industry"></input> 
+                </form>
             </p>
         </div>
-      </div>
+        {% else %}
+            <a href="/login" class="btn btn-primary btn-lg active">Login to Connect</a>
+        {% endif %}
     </div>
 {% endblock content %}
