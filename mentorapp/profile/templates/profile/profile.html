@@ -1,119 +1,122 @@
 {% extends "home/home.html" %}
-{% load crispy_forms_tags %}
 
+{% block css %}
+<style>
+#bio {
+    width:100%
+}
+.general {
+    width:100%
+}
+.container {
+    width: 80%
+}
+.name {
+    width:40%
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+{% endblock %}
 
 {% block content %}
     <div class="content-section">
         <div class="media">
-        {% comment %} <img class="rounded-circle account-img" src="{{ user.profile.image.url }}"> {% endcomment %}
-        <div class="media-body">
-            <img src="{{ profile.image.url }}" width="60%" height="60%">
-            {% if user.is_authenticated and user.is_student %}
-        
-                <div class="profile-details">
-                <h2>You are registered as a student</h2>
-                    <p>
-                        Username:
-                        {{ user.username }}
-                    </p>
-                    <p>
-                        Name:
-                        {{ user.first_name }} {{ user.last_name }}
-                    </p>
-                    <p>
-                        Email:
-                        {{ user.email }}
-                    </p>
-                    <p>
-                        Link:
-                        {{ profile.website }}
-                    </p>
-                    <p>
-                        Bio:
-                        {{ profile.bio }}
-                    </p>
-                    <p>
-                        School:
-                        {% for school in user.school.all %}
-                        {{ school }} 
-                        {% endfor %}  
-                                            
-                    </p>
-                    <p>
-                        Major:
-                        {% for major in user.majors.all %}
-                        {{ major }}
-                        {% endfor %}
-                    </p>
-                    <p>
-                        Industry Interests:
-                        {% for industry in user.industries.all %}
-                        {{ industry }}
-                        {% endfor %}
-                    </p>
-                    <p>
-                        Requests:
-                        {% for request in user.requests.all %}
-                        {{ request }}
-                        {% endfor %}
-                    </p>
-                </div>
-            {% elif user.is_authenticated and user.is_mentor %}
-                <div class="profile-details">
-                <h2>You are registered as a mentor</h2>
-                    <p>
-                        Username:
-                        {{ user.username }}
-                    </p>
-                    <p>
-                        Name:
-                        {{ user.first_name }}
-                    </p>
-                    <p>
-                        Last name:
-                        {{ user.last_name }}
-                    </p>
-                    <p>
-                        Email:
-                        {{ user.email }}
-                    </p>
-                    </p>
-                    <p>
-                        School:
-                        {% for school in user.school.all %}
-                        {{ school }}
-                        {% endfor %}                        
-                    </p>
-                    <p>
-                        Major:
-                        {% for major in user.majors.all %}
-                        {{ major }}
-                        {% endfor %}
-                    </p>
-                    <p>
-                        Industries:
-                        {% for industry in user.industries.all %}
-                        {{ industry }}
-                        {% endfor %}
-                    </p>
-                    <p>
-                        Requests:
-                        {% for request in user.requests.all %}
-                        {{ request }}
-                        {% endfor %}
-                    </p>
-                    <p>
-                        Company:
-                        {% for company in user.companies.all %}
-                        {{ company }}
-                        {% endfor %}
-                    </p>
-                </div>
-            {% else %}
-            <p><a href="/login" class="btn btn-primary btn-lg active">Login</a> </p>
+            <img src="{{ profile.image.url }}" width="60%" height="60%" class="center">
+        </div>    
+        {% if user.is_authenticated %}
+            {% if user.id == pk %}
+                {% if user.is_student %}
+                    <h2 align="center">You are registered as a Student</h2>
+                {% elif user.is_mentor %}
+                    <h2 align="center">You are registered as a Mentor</h2>  
+                {% endif %}  
+                <br>
+                <a href ='{% url "edit" %}' class="btn btn-primary btn-sm">Edit Profile</a>          
+            {% elif user.id != pk %}
+                {% if profile_connection %}
+                    {% for profile in profile_connection %}
+                        {% if profile.status == 'P' %}
+                            <h4 align="center">You have a Pending Connection Request</h4>
+                        {% elif profile.status == 'C' %}
+                            <h4 align="center">You are Connected!</h4>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <form method="POST" action="{% url "profile" pk %}">
+                    {% csrf_token %}
+                    <input name="user_id" type="hidden" value="{{ pk }}"></input>
+                    <input class="btn btn-primary btn-sm" name = "action" type="submit" value="Connect"></input>
+                    </form>
+                {% endif %}
             {% endif %}
+        {% else %}
+            <a href="/login" class="btn btn-primary btn-lg active">Login to Connect</a>
+        {% endif %}
+        <div class="container">
+        <br>
+            <p>
+                <strong>Username:</strong>
+                <br>
+                {{ profile_user.username }}
+            </p>
+            <p>
+                <strong>Name:</strong>
+                <br>
+                {{ profile_user.first_name }} {{ profile_user.last_name }}
+            </p>
+            <p>
+                <strong>Email:</strong>
+                <br>
+                {{ profile_user.email }}
+            </p>
+            <p>
+                <strong>Link:</strong>
+                <br>
+                {{ profile.website }}
+            </p>
+            <p>
+                <strong>Bio:</strong>
+                <br>
+                {{ profile.bio }}
+            </p>
+            <p>
+                <strong>School:</strong>
+                <br>
+                {% for school in profile_user.school.all %}
+                {{ school }} 
+                <br>
+                {% endfor %}  
+                                    
+            </p>
+            <p>
+                <strong>Major:</strong>
+                <br>
+                {% for major in profile_user.majors.all %}
+                {{ major }}
+                <br>
+                {% endfor %}
+            </p>
+            <p>
+                <strong>Industry Interests:</strong>
+                <br>
+                {% for industry in profile_user.industries.all %}
+                {{ industry }}
+                <br>
+                {% endfor %}
+            </p>
+            <p>
+                <strong>Requests:</strong>
+                <br>
+                {% for request in profile_user.requests.all %}
+                {{ request }}
+                <br>
+                {% endfor %}
+            </p>
         </div>
       </div>
-      <!-- FORM HERE -->
     </div>
 {% endblock content %}

@@ -37,10 +37,10 @@
             <td class = "name"><a href="{% url "profile" pending.mentor.pk %}"> {{ pending.mentor.first_name }}{{ pending.mentor.last_name }}</a></td>
             <td class = "bio">{{ pending.mentor.profile.bio }}</td>
             <td> 
-                <form method="POST" action="{% url "connections" %}">
+                <form method="POST" action="{% url "pending" %}">
                 {% csrf_token %}
                 <input name="task" type="hidden" value="edit_connection"></input>
-                <input class="user_id" name="other_user_id" type="hidden" value="{{ pending.id }}"></input>
+                <input class="connection_id" name="connection_id" type="hidden" value="{{ pending.id }}"></input>
                 <input class = "accept_btn" name = "action" type="submit" value="Accept"></input>
                 <input class = "decline_btn" name = "action" type="submit" value="Decline"></input> 
                 </form>
@@ -71,7 +71,7 @@
                 <form method="POST" action="{% url "pending" %}">
                 {% csrf_token %}
                 <input name="task" type="hidden" value="edit_connection"></input>
-                <input class="user_id" name="other_user_id" type="hidden" value="{{ pending.id }}"></input>
+                <input class="connection_id" name="connection_id" type="hidden" value="{{ pending.id }}"></input>
                 <input class = "accept_btn" name = "action" type="submit" value="Accept"></input>
                 <input class = "decline_btn" name = "action" type="submit" value="Decline"></input> 
                 </form>
