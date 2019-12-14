@@ -26,7 +26,8 @@ urlpatterns = [
     path('home/', include('home.urls')),
 
     path('profile/', include('profile.urls')),
-    path('connection/', include('connection.urls'))
+    path('connection/', include('connection.urls')),
+    path('search/', include('search.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
