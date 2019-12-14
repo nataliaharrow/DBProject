@@ -9,15 +9,21 @@
         {% if user.is_authenticated %}
             {% if user.id == pk %}
                 {% if user.is_student %}
-                    <h2>You are registered as a student</h2>
+                    <h2>You are registered as a Student</h2>
                 {% elif user.is_mentor %}
-                    <h2>You are registered as a mentor</h2>  
+                    <h2>You are registered as a Mentor</h2>  
                 {% endif %}  
                 <br>
                 <a href ='{% url "edit" %}' class="btn btn-primary btn-sm">Edit Profile</a>          
             {% elif user.id != pk %}
                 {% if profile_connection %}
-                    <h4>You have sent a Connection Request</h4>
+                    {% for profile in profile_connection %}
+                        {% if profile.status == 'P' %}
+                            <h4>You have sent a Connection Request</h4>
+                        {% elif profile_connection.status == 'C' %}
+                            <h4>You are Connected!</h4>
+                        {% endif %}
+                    {% endfor %}
                 {% else %}
                     <form method="POST" action="{% url "profile" pk %}">
                     {% csrf_token %}

@@ -40,22 +40,14 @@ def pending(request):
                 connection_id = int(body['connection_id'])
                 connection = Connection.objects.get(pk=connection_id)
                 connection.status = 'C'
-        if user.is_student:
-            connections = Connection.objects.filter(student=user).filter(status='P')
-        else:
-            connections = Connection.objects.filter(mentor=user).filter(status='P')
-        context = {'connections': connections}
-        return render(request, 'connection/pending.html', context)
+    if user.is_student:
+        connections = Connection.objects.filter(student=user).filter(status='P').filter(request_from='M')
+    elif user.is_mentor:
+        connections = Connection.objects.filter(mentor=user).filter(status='P').filter(request_from='S')
+    context = {'connections': connections}
+    return render(request, 'connection/pending.html', context=context)
 
-    elif request.method == "GET":
-        if user.is_student:
-            connections = Connection.objects.filter(student=user).filter(status='P')
-        else:
-            connections = Connection.objects.filter(mentor=user).filter(status='P')
-        context = {
-            'connections': connections,
-        }
-        return render(request, 'connection/pending.html', context=context)
+    
 
 
     # if body['action'] == 'Connect':

@@ -22,6 +22,9 @@ def profile(request, pk):
         profile_connection = Connection.objects.filter(student=profile_user).filter(mentor=request.user)
     elif profile_user.is_mentor and request.user.is_student:
         profile_connection = Connection.objects.filter(mentor=profile_user).filter(student=request.user)       
+    else:
+        profile_connection = None
+        
     context = { 
         'profile': profile,
         'profile_user': profile_user,
