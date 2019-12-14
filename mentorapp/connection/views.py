@@ -14,32 +14,28 @@ def connections(request):
             if body['action'] == 'Remove':
                 connection_id = int(body['connection_id'])
                 Connection.objects.delete(pk=connection_id)
-        if user.is_student == True:
-            connections = list(Connection.objects.filter(student=user).filter(status='C'))
-        elif user.is_mentor == True:
-            connections = list(Connection.objects.filter(mentor=user).filter(status='C'))
-        context = {'connections': connections}
-        return render(request, 'connection/connections.html')
-    elif request.method == 'GET':
-        if user.is_student == True:
-            connections = list(Connection.objects.filter(student=user).filter(status='C'))
-        elif user.is_mentor == True:
-            connections = list(Connection.objects.filter(mentor=user).filter(status='C'))
-        context = {'connections': connections}
-        return render(request, 'connection/connections.html')
+    if user.is_student == True:
+        connections = list(Connection.objects.filter(student=user).filter(status='C'))
+    elif user.is_mentor == True:
+        connections = list(Connection.objects.filter(mentor=user).filter(status='C'))
+    context = {'connections': connections}
+    return render(request, 'connection/connections.html', context=context)
+
 
 def pending(request):
     user = request.user
     if request.method == "POST":
         body = parse_req_body(request.body)
-        if body['task'] == edit_connection:
+        print(body)
+        if body['task'] == 'edit_connection':
+            connection_id = int(body['connection_id'])
             if body['action'] == 'Decline':
-                connection_id = int(body['connection_id'])
                 Connection.objects.delete(pk=connection_id)
             elif body['action'] == 'Accept':
-                connection_id = int(body['connection_id'])
                 connection = Connection.objects.get(pk=connection_id)
+                print(connection)
                 connection.status = 'C'
+                connection.save()
     if user.is_student:
         connections = Connection.objects.filter(student=user).filter(status='P').filter(request_from='M')
     elif user.is_mentor:

@@ -17,8 +17,8 @@
             
             {% for current in connections %}
             <tr>
-                <td><img src="{{ pending.mentor.profile.}}" alt="" height=50 width=50 class="thumbnail"></img></td>
-                <td class = "name"><a href="{% url "profile" pending.mentor.pk %}"> {{ pending.mentor.first_name }}{{ pending.mentor.last_name }}</a></td>
+                <td><img src="{{ current.mentor.profile.}}" alt="" height=50 width=50 class="thumbnail"></img></td>
+                <td class = "name"><a href="{% url "profile" current.mentor.pk %}"> {{ current.mentor.first_name }}{{ current.mentor.last_name }}</a></td>
                 <!--will add msging link-->
                 <td> 
                     <form method="POST" action="{% url "connections" %}">
@@ -49,9 +49,9 @@
         
         {% for current in connections %}
         <tr>
-            <td><img src="{{ pending.student.profile.}}" alt="" height=50 width=50 class="thumbnail"></img></td>
+            <td><img src="{{ current.student.profile.}}" alt="" height=50 width=50 class="thumbnail"></img></td>
             <!--will add msging link-->
-            <td class = "name"><a href="{% url "profile" pending.student.pk %}"> {{ pending.student.first_name }}{{ pending.student.last_name }}</a></td>
+            <td class = "name"><a href="{% url "profile" current.student.pk %}"> {{ current.student.first_name }}{{ current.student.last_name }}</a></td>
             <td> 
                 <form method="POST" action="{% url "connections" %}">
                 {% csrf_token %}
