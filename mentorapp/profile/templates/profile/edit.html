@@ -1,67 +1,109 @@
 {% extends "home/home.html" %}
 
+{% block css %}
+<style>
+#bio {
+    width:100%
+}
+.general {
+    width:100%
+}
+.container {
+    width: 80%
+}
+.name {
+    width:40%
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+{% endblock %}
+
+
 {% block content %}
     <div class="content-section">
         <div class="media">
-            <img src="{{ profile.image.url }}" width="60%" height="60%">
+            <img src="{{ profile.image.url }}" width="60%" height="60%" class="center">
         </div>    
         {% if user.is_authenticated %}
             {% if user.is_student %}
-                <h2>You are registered as a Student</h2>
+                <h2 align="center">You are registered as a Student</h2>
             {% elif user.is_mentor %}
-                <h2>You are registered as a Mentor</h2>  
+                <h2 align="center">You are registered as a Mentor</h2>  
             {% endif %}  
             <br>
         
-        <div class="profile-details">
+        <div class="container">
             <p>
-                Username:
+                <strong>Username:</strong>
+                <br>
                 {{ user.username }}
             </p>
             <p>
-                Name:
+                <strong>Name:</strong>
+                <br>
                 {{ user.first_name }} {{ user.last_name }}
+                <br>
                 <form method="POST" action="{% url "edit" %}">
                 {% csrf_token %}
-                <input name="new_first_name" type="text" placeholder="Edit First Name"></input>
-                <input name ="new_last_name" type="text" placeholder="Edit Last Name"></input>
+                <input class="name" name="new_first_name" type="text" placeholder="Edit First Name"></input>
+                <input class="name" name ="new_last_name" type="text" placeholder="Edit Last Name"></input>
             </p>
             <p>
-                Email:
+               <strong> Email:</strong>
+               <br>
                 {{ user.email }}
-                <input name="new_email" type="text" placeholder="Edit Email Address"></input>
+                <br>
+                <input class="general" name="new_email" type="text" placeholder="Edit Email Address"></input>
             </p>
             <p>
-                Link:
+                <strong>Link:</strong>
+                <br>
                 {{ profile.website }}
-                <input name="new_website" type="text" placeholder="Edit Link"></input>
+                <br>
+                <input class="general" name="new_website" type="text" placeholder="Edit Link"></input>
             </p>
             <p>
-                Bio:
+                <strong>Bio:</strong>
+                <br>
                 {{ profile.bio }}
-                <input name="new_bio" type="text" placeholder="Edit Biography"></input>
+                <br>
+                <textarea name="new_bio" rows="10" cols="50" placeholder="Edit Biography"></textarea>
             </p>
             <p>
-                School:
+                <strong>School:</strong>
+                <br>
                 {% for school in user.school.all %}
-                {{ school }} 
+                {{ school }} <input class="btn btn-sm btn-outline-danger py-0 px-1" style="font-size: 0.8em;" name = "delete_school" type="submit" value="✕"></input>
+                <br>
                 {% endfor %}  
-                <input name="new_school" type="text" placeholder="Add School"></input>                    
+                <input class="general" name="new_school" type="text" placeholder="Add School"></input>    
             </p>
             <p>
-                Major:
+                <strong>Major:</strong>
+                <br>
                 {% for major in user.majors.all %}
-                {{ major }}
+                {{ major }} <input class="btn btn-sm btn-outline-danger py-0 px-1" style="font-size: 0.8em;" name = "delete_major" type="submit" value="✕"></input>
+                <br>
                 {% endfor %}
-                <input name="new_school" type="text" placeholder="Add Major"></input> 
+                <input class="general" name="new_school" type="text" placeholder="Add Major"></input> 
             </p>
             <p>
-                Industry Interests:
+                <strong>Industry Interests:</strong>
+                <br>
                 {% for industry in user.industries.all %}
-                {{ industry }}
+                {{ industry }} <input class="btn btn-sm btn-outline-danger py-0 px-1" style="font-size: 0.8em;" name = "delete_industry" type="submit" value="✕"></input>
+                <br>
                 {% endfor %}
-                <input name="new_industry" type="text" placeholder="Add Industry"></input> 
+                <input class="general" name="new_industry" type="text" placeholder="Add Industry"></input> 
+                <br>
+                <br>
+                <input class="btn btn-primary btn-lg" name = "submit" type="submit" value="Submit"></input>                
                 </form>
+                <br>
             </p>
         </div>
         {% else %}

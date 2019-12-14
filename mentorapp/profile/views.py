@@ -24,7 +24,7 @@ def profile(request, pk):
         profile_connection = Connection.objects.filter(mentor=profile_user).filter(student=request.user)       
     else:
         profile_connection = None
-        
+
     context = { 
         'profile': profile,
         'profile_user': profile_user,
@@ -35,6 +35,11 @@ def profile(request, pk):
 
 def edit(request):
     user = request.user
+    if request.method == 'POST':
+        body = parse_req_body(request.body)
+        for variable in body:
+            print(variable)
+
     profile = Profile.objects.get(user=user)
     context = { 
         'profile': profile,
