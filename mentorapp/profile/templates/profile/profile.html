@@ -29,15 +29,15 @@
         <br>
             <p>
                 Username:
-                {{ user.username }}
+                {{ profile_user.username }}
             </p>
             <p>
                 Name:
-                {{ user.first_name }} {{ user.last_name }}
+                {{ profile_user.first_name }} {{ profile_user.last_name }}
             </p>
             <p>
                 Email:
-                {{ user.email }}
+                {{ profile_user.email }}
             </p>
             <p>
                 Link:
@@ -49,26 +49,26 @@
             </p>
             <p>
                 School:
-                {% for school in user.school.all %}
+                {% for school in profile_user.school.all %}
                 {{ school }} 
                 {% endfor %}  
                                     
             </p>
             <p>
                 Major:
-                {% for major in user.majors.all %}
+                {% for major in profile_user.majors.all %}
                 {{ major }}
                 {% endfor %}
             </p>
             <p>
                 Industry Interests:
-                {% for industry in user.industries.all %}
+                {% for industry in profile_user.industries.all %}
                 {{ industry }}
                 {% endfor %}
             </p>
             <p>
                 Requests:
-                {% for request in user.requests.all %}
+                {% for request in profile_user.requests.all %}
                 {{ request }}
                 {% endfor %}
             </p>
