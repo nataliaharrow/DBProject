@@ -8,6 +8,6 @@ Library/Language Requirements:
 
 Steps to run locally:
 1. Navigate to repo location in terminal
-1. Call `python manage.py runserver`
-2. Navigate to port provided in output
-3. Enjoy!
+2. Call `python manage.py runserver`
+3. Navigate to port provided in output
+
