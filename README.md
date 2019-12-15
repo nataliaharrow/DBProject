@@ -9,5 +9,5 @@ Library/Language Requirements:
 Steps to run locally:
 1. Navigate to repo location in terminal
 2. Call `python manage.py runserver`
-3. Navigate to port provided in output
+3. Navigate to port provided in output + '/register/'
 
