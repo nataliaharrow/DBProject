@@ -28,6 +28,7 @@ urlpatterns = [
     path('profile/', include('profile.urls')),
     path('connection/', include('connection.urls')),
     path('search/', include('search.urls')),
+    path('about/', include('about.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
