@@ -1,0 +1,29 @@
+{% extends "home/home.html" %}
+
+{% block title %}<h4>Search</h4><br>{% endblock %}
+
+{% block content %}
+
+            <form action="{% url 'search' %}" method="GET" value="{{request.GET.q}}">
+            Search <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search users"/>
+            <input type="submit" name="submit" value="Search"/>
+            </form>
+
+            {% if submitbutton == 'Search' and request.GET.q != '' %}
+            <br/>
+            {% if results %}
+            <h4>Results for <b>{{ request.GET.q }}</b></h4>
+            <br/>
+
+            {% for result in results %}
+
+            <a href="{% url "profile" result.pk %}"> {{result.first_name}}  {{result.last_name}}</a></br>
+
+            {% endfor %}
+            {% else %}
+            No search results found.
+            {% endif %}
+            {% endif %}
+
+
+{% endblock content %}  
