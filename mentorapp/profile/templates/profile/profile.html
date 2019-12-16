@@ -19,13 +19,29 @@
     margin-left: auto;
     margin-right: auto;
 }
+#edit_btn {
+    height:32px; 
+    width:100px; 
+    margin: -20px -50px; 
+    position:relative;
+    top:50%; 
+    left:50%;
+}
+#connect_btn {
+    height:32px; 
+    width:100px; 
+    margin: -20px -50px; 
+    position:relative;
+    top:50%; 
+    left:50%;
+}
 </style>
 {% endblock %}
 
 {% block content %}
     <div class="content-section">
         <div class="media">
-            <img src="{{ profile.image.url }}" width="60%" height="60%" class="center">
+            <img src="{{ profile.image.url }}" width="50%" height="50%" class="center">
         </div>    
         {% if user.is_authenticated %}
             {% if user.id == pk %}
@@ -35,7 +51,7 @@
                     <h2 align="center">You are registered as a Mentor</h2>  
                 {% endif %}  
                 <br>
-                <a href ='{% url "edit" %}' class="btn btn-primary btn-sm">Edit Profile</a>          
+                <a id="edit_btn" href ='{% url "edit" %}' class="btn btn-primary btn-sm" align: "center">Edit Profile</a>          
             {% elif user.id != pk %}
                 {% if profile_connection %}
                     {% for profile in profile_connection %}
@@ -49,7 +65,7 @@
                     <form method="POST" action="{% url "profile" pk %}">
                     {% csrf_token %}
                     <input name="user_id" type="hidden" value="{{ pk }}"></input>
-                    <input class="btn btn-primary btn-sm" name = "action" type="submit" value="Connect"></input>
+                    <input id="connect_btn" class="btn btn-primary btn-sm" name = "action" type="submit" value="Connect"></input>
                     </form>
                 {% endif %}
             {% endif %}
@@ -83,10 +99,32 @@
                 <br>
                 {{ profile.bio }}
             </p>
+            {% if profile_user.is_mentor %}
+            <p>
+                <strong>Company:</strong>
+                <br>
+                {% for company in profile_user.companies.all %}
+                {{ company }} 
+                <br>
+                {% endfor %}
+            </p>
+            {% endif %}            
+            <p>
+                {% if profile_user.is_student %}
+                <strong>Industry Interests:</strong>
+                {% elif profile_user.is_mentor %}
+                <strong>Industry:</strong>
+                {% endif %}  
+                <br>
+                {% for industry in profile_user.industries.all %}
+                {{ industry }}
+                <br>
+                {% endfor %}
+            </p>
             <p>
                 <strong>School:</strong>
                 <br>
-                {% for school in profile_user.school.all %}
+                {% for school in profile_user.schools.all %}
                 {{ school }} 
                 <br>
                 {% endfor %}  
@@ -99,23 +137,16 @@
                 {{ major }}
                 <br>
                 {% endfor %}
-            </p>
-            <p>
-                <strong>Industry Interests:</strong>
-                <br>
-                {% for industry in profile_user.industries.all %}
-                {{ industry }}
-                <br>
-                {% endfor %}
-            </p>
-            <p>
+            </p>           
+            <br>
+            {% comment %} <p>
                 <strong>Requests:</strong>
                 <br>
                 {% for request in profile_user.requests.all %}
                 {{ request }}
                 <br>
                 {% endfor %}
-            </p>
+            </p> {% endcomment %}
         </div>
       </div>
     </div>
