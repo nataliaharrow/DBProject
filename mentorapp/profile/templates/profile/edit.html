@@ -19,6 +19,32 @@
     margin-left: auto;
     margin-right: auto;
 }
+.inputfile {
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+.inputfile + label {
+    font-size: 1.25em;
+    font-weight: 500;
+    color: black;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    background-color: lightgray;
+    display: inline-block;
+    position: relative;
+    align-content: center;
+}
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: gray;
+}
+#upload {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
 </style>
 {% endblock %}
 
@@ -27,7 +53,16 @@
     <div class="content-section">
         <div class="media">
             <img src="{{ profile.image.url }}" width="60%" height="60%" class="center">
-        </div>    
+        </div>
+        <br>
+            <form method="POST" action="{% url "edit" %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="center">
+                <input type="file" name="new_profile_image" id="file" class="inputfile">
+                <label for="file">Choose a file</label>
+                <button id="upload" type="submit" class="btn btn-primary btn-sm">Upload</button>
+            </div>
+            </form>  
         {% if user.is_authenticated %}
             {% if user.is_student %}
                 <h2 align="center">You are registered as a Student</h2>
@@ -73,10 +108,39 @@
                 <br>
                 <textarea name="new_bio" rows="10" cols="50" placeholder="Edit Biography"></textarea>
             </p>
+            {% if user.is_mentor %}
+                <p>
+                    <strong>Company:</strong>
+                    <br>
+                    {% for company in user.companies.all %}
+                    <input class="id" name = "company_id" type="hidden" value="{{ company.id }}"></input>
+                    {{ company }} <input class="btn btn-sm btn-outline-danger py-0 px-1" style="font-size: 0.8em;" name = "delete_industry" type="submit" value="✕"></input>
+                    <br>
+                    {% endfor %}
+                    <input class="general" name="new_company" type="text" placeholder="Add Company"></input> 
+                    <br>                    
+                </p>
+            {% endif %}
+            <p>
+                {% if user.is_student %}
+                <strong>Industry Interests:</strong>
+                {% elif user.is_mentor %}
+                <strong>Industry:</strong>
+                {% endif %}  
+                <br>
+                {% for industry in user.industries.all %}
+                <input class="id" name = "industry_id" type="hidden" value="{{ industry.id }}"></input>
+                {{ industry }} <input class="btn btn-sm btn-outline-danger py-0 px-1" style="font-size: 0.8em;" name = "delete_industry" type="submit" value="✕"></input>
+                <br>
+                {% endfor %}
+                <input class="general" name="new_industry" type="text" placeholder="Add Industry"></input> 
+                <br>
+            </p>
             <p>
                 <strong>School:</strong>
                 <br>
-                {% for school in user.school.all %}
+                {% for school in user.schools.all %}
+                <input class="id" name = "school_id" type="hidden" value="{{ school.id }}"></input>
                 {{ school }} <input class="btn btn-sm btn-outline-danger py-0 px-1" style="font-size: 0.8em;" name = "delete_school" type="submit" value="✕"></input>
                 <br>
                 {% endfor %}  
@@ -86,26 +150,19 @@
                 <strong>Major:</strong>
                 <br>
                 {% for major in user.majors.all %}
+                <input class="id" name = "major_id" type="hidden" value="{{ major.id }}"></input>
                 {{ major }} <input class="btn btn-sm btn-outline-danger py-0 px-1" style="font-size: 0.8em;" name = "delete_major" type="submit" value="✕"></input>
+                
                 <br>
                 {% endfor %}
-                <input class="general" name="new_school" type="text" placeholder="Add Major"></input> 
+                <input class="general" name="new_major" type="text" placeholder="Add Major"></input> 
             </p>
-            <p>
-                <strong>Industry Interests:</strong>
-                <br>
-                {% for industry in user.industries.all %}
-                {{ industry }} <input class="btn btn-sm btn-outline-danger py-0 px-1" style="font-size: 0.8em;" name = "delete_industry" type="submit" value="✕"></input>
-                <br>
-                {% endfor %}
-                <input class="general" name="new_industry" type="text" placeholder="Add Industry"></input> 
-                <br>
-                <br>
-                <input class="btn btn-primary btn-lg" name = "submit" type="submit" value="Submit"></input>                
-                </form>
-                <br>
-            </p>
+            <br>
+            <input class="btn btn-primary btn-lg" name = "submit" type="submit" value="Submit"></input>                
+            </form>
+            <br>
         </div>
+
         {% else %}
             <a href="/login" class="btn btn-primary btn-lg active">Login to Connect</a>
         {% endif %}

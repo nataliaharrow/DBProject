@@ -83,10 +83,32 @@
                 <br>
                 {{ profile.bio }}
             </p>
+            {% if user.is_mentor %}
+            <p>
+                <strong>Company:</strong>
+                <br>
+                {% for company in profile_user.companies.all %}
+                {{ company }} 
+                <br>
+                {% endfor %}
+            </p>
+            {% endif %}            
+            <p>
+                {% if user.is_student %}
+                <strong>Industry Interests:</strong>
+                {% elif user.is_mentor %}
+                <strong>Industry:</strong>
+                {% endif %}  
+                <br>
+                {% for industry in profile_user.industries.all %}
+                {{ industry }}
+                <br>
+                {% endfor %}
+            </p>
             <p>
                 <strong>School:</strong>
                 <br>
-                {% for school in profile_user.school.all %}
+                {% for school in profile_user.schools.all %}
                 {{ school }} 
                 <br>
                 {% endfor %}  
@@ -99,23 +121,16 @@
                 {{ major }}
                 <br>
                 {% endfor %}
-            </p>
-            <p>
-                <strong>Industry Interests:</strong>
-                <br>
-                {% for industry in profile_user.industries.all %}
-                {{ industry }}
-                <br>
-                {% endfor %}
-            </p>
-            <p>
+            </p>           
+
+            {% comment %} <p>
                 <strong>Requests:</strong>
                 <br>
                 {% for request in profile_user.requests.all %}
                 {{ request }}
                 <br>
                 {% endfor %}
-            </p>
+            </p> {% endcomment %}
         </div>
       </div>
     </div>

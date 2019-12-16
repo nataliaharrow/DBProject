@@ -2,6 +2,7 @@ from django.shortcuts import render
 from helper import parse_req_body
 from app_user.models import *
 
+
 # Create your views here.
 
 def profile(request, pk):
@@ -39,9 +40,64 @@ def profile(request, pk):
 def edit(request):
     user = request.user
     if request.method == 'POST':
+        profile = Profile.objects.get(user=user)
         body = parse_req_body(request.body)
-        for variable in body:
-            print(variable)
+        uploaded_files = request.FILES
+        if 'submit' in body:
+            for variable in body:
+                if body[variable] != "":
+                    content = body[variable]
+                    if variable == "new_first_name":
+                        user.first_name = content
+                    elif variable == "new_last_name":
+                        user.last_name = content 
+                    elif variable == "new_email":
+                        user.email = content 
+                    elif variable == "new_website":
+                        profile.website = content                    
+                    elif variable == "new_bio":
+                        profile.bio = content
+                    elif variable == "new_school":
+                        new_school = School.objects.create(name=content)
+                        user.schools.add(new_school)
+                    elif variable == "new_major":
+                        new_major = Major.objects.create(name=content)
+                        user.majors.add(new_major)
+                    elif variable == "new_industry":
+                        new_industry = Industry.objects.create(name=content)
+                        user.industries.add(new_industry)   
+                    elif variable == "new_company":
+                        new_company = Company.objects.create(name=content)
+                        user.companies.add(new_company)      
+        else:
+            if 'delete_company' in body:
+                company_id = body['company_id']
+                company = Company.objects.get(pk=company_id)
+                user.companies.remove(company)
+                company.delete()
+
+            elif 'delete_industry' in body:
+                industry_id = body['industry_id']
+                industry = Industry.objects.get(pk=industry_id)
+                user.industries.remove(industry)
+                industry.delete()            
+            if 'delete_school' in body:
+                school_id = body['school_id']
+                school = School.objects.get(pk=school_id)
+                user.schools.remove(school)
+                school.delete()
+            if 'delete_major' in body:
+                major_id = body['major_id']
+                major = Major.objects.get(pk=major_id)
+                user.majors.remove(major)
+                major.delete()
+
+
+        user.save()
+        profile.save() 
+        # elif body['delete_industry']                  
+                
+
 
     profile = Profile.objects.get(user=user)
     context = { 

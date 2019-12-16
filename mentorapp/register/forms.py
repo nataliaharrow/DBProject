@@ -2,7 +2,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.db import models
 from django import forms
-from app_user.models import User, School, Industry, Major, Request, Company
+from app_user.models import *
 
 
 # from crispy_forms.helper import FormHelper
