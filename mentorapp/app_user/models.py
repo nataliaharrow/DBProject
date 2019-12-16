@@ -71,16 +71,20 @@ class Profile(models.Model):
 
 
 class UserRequest(Request):
-    mentor = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='mentor_request'
-    )
-    student = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='student_request'
-    )
+    # mentor = models.ForeignKey(
+    #     User,
+    #     on_delete=models.CASCADE,
+    #     related_name='mentor_request'
+    # )
+    # student = models.ForeignKey(
+    #     User,
+    #     on_delete=models.CASCADE,
+    #     related_name='student_request'
+    # )
+    
+    requesting = models.CharField(max_length = 100, default='')
+    description = models.TextField( default='', null=True, blank=True)
+    document = models.FileField(upload_to='requests/documents/', null=True, blank=True)
 
 
 class Connection(models.Model):
