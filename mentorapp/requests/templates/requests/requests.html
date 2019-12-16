@@ -1,0 +1,51 @@
+{% extends "home/home.html" %}
+
+{% block title %}<h4>Requests</h4><br>{% endblock %}
+
+{% block content %}
+<body>
+    <a href ='{% url "upload" %}' class="btn btn-primary btn-sm">Upload Files</a> <br> </br>
+    {% if reqs %}
+        <table id = "requests-table" class="table table-condensed table-hover table-striped ng-table">
+            <tr class = "table_header">
+                <th>Requesting</th>
+                <th>Description</th>
+                <th>Download</th>
+                <th>Delete</th>
+            </tr>
+            {% for req in reqs %}
+                <tr>
+                    <td> {{ req.requesting }} </td>
+                    {% if req.description %}
+                        <td> {{ req.description }} </td>
+                    {% else %}
+                        <td>No description</td>
+                    {% endif %}
+                    {% if req.document %}
+                        <td>
+                            <a href="{{ req.document.url }}" class="btn btn-primary btn-sm" target="_blank">
+                            Download Document
+                            </a>
+                        </td>
+                    {% else %}
+                        <td>No Document</td>
+                    {% endif %}
+                    <td> <form method="post" action="{% url 'delete_request' req.pk %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form> 
+                    </td>
+                </tr>
+                {% endfor %}
+    
+        </table>
+
+    {% else %}
+        <p> You have not made any requests. Upload a file to make a request!</p>
+
+    {% endif %}
+
+</body>
+
+
+{% endblock content %}

@@ -29,6 +29,7 @@ urlpatterns = [
     path('connection/', include('connection.urls')),
     path('search/', include('search.urls')),
     path('about/', include('about.urls')),
+    path('requests/', include('requests.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
