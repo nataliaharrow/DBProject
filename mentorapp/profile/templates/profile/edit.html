@@ -23,6 +23,9 @@
 	width: 1px;
 	height: 1px;
 	overflow: hidden;
+    position:relative;
+    top:50%; 
+    left:50%;    
 }
 .inputfile + label {
     font-size: 1.25em;
@@ -31,18 +34,19 @@
     border-radius: 4px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
     background-color: lightgray;
-    display: inline-block;
-    position: relative;
     align-content: center;
+    position:relative;
+    top:50%; 
+    left:40%;  
 }
 .inputfile:focus + label,
 .inputfile + label:hover {
     background-color: gray;
 }
 #upload {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    position:relative;
+    top:50%; 
+    left:47%;
 }
 </style>
 </style>
@@ -60,8 +64,9 @@
             <div class="center">
                 <input type="file" name="new_profile_image" id="file" class="inputfile">
                 <label for="file">Choose a file</label>
-                <button id="upload" type="submit" class="btn btn-primary btn-sm">Upload</button>
             </div>
+                <button id="upload" type="submit" class="btn btn-primary btn-sm">Upload</button>
+            
             </form>  
         {% if user.is_authenticated %}
             {% if user.is_student %}

@@ -39,10 +39,9 @@ def profile(request, pk):
 
 def edit(request):
     user = request.user
-    if request.method == 'POST':
+    if request.method == 'POST' and request.FILES is None:
         profile = Profile.objects.get(user=user)
         body = parse_req_body(request.body)
-        uploaded_files = request.FILES
         if 'submit' in body:
             for variable in body:
                 if body[variable] != "":
@@ -75,7 +74,6 @@ def edit(request):
                 company = Company.objects.get(pk=company_id)
                 user.companies.remove(company)
                 company.delete()
-
             elif 'delete_industry' in body:
                 industry_id = body['industry_id']
                 industry = Industry.objects.get(pk=industry_id)
@@ -91,10 +89,19 @@ def edit(request):
                 major = Major.objects.get(pk=major_id)
                 user.majors.remove(major)
                 major.delete()
-
-
         user.save()
         profile.save() 
+    elif request.method == 'POST' and request.FILES:
+        profile = Profile.objects.get(user=user)
+        uploaded_file = request.FILES['new_profile_image']
+        print(uploaded_file)
+        # if uploaded_file.endswith('.jpg') or uploaded_file.endswith('.bmp') or uploaded_file.endswith('.png') or uploaded_file.endswith('.jpeg'):
+        profile.image = uploaded_file
+        profile.save()
+                #if uploaded_file.content_type == "" 
+
+
+    
         # elif body['delete_industry']                  
                 
 
