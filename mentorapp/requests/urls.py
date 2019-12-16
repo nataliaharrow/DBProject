@@ -3,8 +3,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('requests/', views.requests, name='requests'),
+    path('', views.requests, name='requests'),
     path('upload/', views.upload, name='upload'),
-    path('<int:pk>/', views.delete_request, name='delete_request'),
-
+    path('delete/<int:pk>/', views.delete, name='delete'),
+    path('respond/<int:pk>/', views.respond, name='respond'),
 ]

@@ -71,16 +71,22 @@ class Profile(models.Model):
 
 
 class UserRequest(Request):
-    # mentor = models.ForeignKey(
-    #     User,
-    #     on_delete=models.CASCADE,
-    #     related_name='mentor_request'
-    # )
-    # student = models.ForeignKey(
-    #     User,
-    #     on_delete=models.CASCADE,
-    #     related_name='student_request'
-    # )
+    mentor = models.ForeignKey(
+        User,
+        limit_choices_to={'is_mentor':True},
+        on_delete=models.SET_NULL,
+        null=True,
+        default=None,
+        related_name='mentor_request'
+    )
+    student = models.ForeignKey(
+        User,
+        limit_choices_to={'is_student':True},
+        on_delete=models.CASCADE,
+        null=True,
+        default=None,
+        related_name='student_request'
+    )
     
     requesting = models.CharField(max_length = 100, default='')
     description = models.TextField( default='', null=True, blank=True)
@@ -124,23 +130,3 @@ class Connection(models.Model):
         default=None,
         null=True
     )
-
-
-
-# class UserSchool(School):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#
-#
-# class UserMajor(Major):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#
-#
-# class UserCompany(Company):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#
-#
-# class UserIndustry(Industry):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-# class CompanyIndustry(Industry):
-#     company = models.ForeignKey(Company, on_delete=models.CASCADE)

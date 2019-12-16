@@ -1,0 +1,15 @@
+{% extends "home/home.html" %}
+
+{% block title %}<h4>Respond to Request</h4>{% endblock %}
+
+{% block content %}
+<div>
+    <form method="POST" action="{% url "respond" pk %}">
+    {% csrf_token %}
+    <textarea name="mentor_response" rows="10" cols="50" placeholder="Respond to UserRequest"></textarea>
+    <input type="file" name="mentor_document" id="file" class="inputfile">
+    <input class="btn btn-primary btn-sm" name = "submit" type="submit" value="Submit"></input>
+    </form>
+</div>
+
+{% endblock content %}
