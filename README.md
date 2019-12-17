@@ -5,7 +5,7 @@ Library/Language Requirements:
 2. Django
 3. Crispy Forms
 4. Pillow
-5. MySQL 
+5. MySQL & SQLite (database can be changed in /mentorproject/mentorapp/mentorapp/settings.py)
 
 Steps to run locally:
 1. Navigate to repo location in terminal
