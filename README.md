@@ -5,6 +5,7 @@ Library/Language Requirements:
 2. Django
 3. Crispy Forms
 4. Pillow
+5. MySQL 
 
 Steps to run locally:
 1. Navigate to repo location in terminal
