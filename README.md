@@ -10,7 +10,7 @@ Library/Language Requirements:
 Steps to run locally:
 1. Navigate to repo location in terminal
 2. Call `python manage.py runserver`
-3. Navigate to port provided in output + '/home'
+3. Navigate to port provided in output + **'/home'**
 
 Mentor Meet is the first project created by our team NTFs. We are comprised of Natalia Harrow, Terri Thampan, and Florence Fong. 
 
