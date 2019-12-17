@@ -12,6 +12,7 @@ Steps to run locally:
 3. Navigate to port provided in output + '/register/'
 
 Mentor Meet is the first project created by our team NTFs. We are comprised of Natalia Harrow, Terri Thampan, and Florence Fong. 
+
 **The project implements all CRUD operations:** 
 - Users can register to the portal as students or mentors. They can provide personal and professfional information about themselves such as their name, email address, attended schools, majors, companies, positions and industries. All the information is then stored in a User table along with each user's id. 
 
