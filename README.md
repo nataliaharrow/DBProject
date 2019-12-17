@@ -19,11 +19,11 @@ Mentor Meet is the first project created by our team NTFs. We are comprised of N
 
 - Each user has their own profile that includes all their information and a photo
 
-- Users can **edit** ad **remove** their personal and professional information
+- Users can **edit** and **remove** their personal and professional information
 
 - Students that wish to be provided mentor's help on a specific career related issue can submit a request to which they can attach a file such as a resume, transcript or cover letter. 
 
-- Students and mentors can **search** for each other based on the information provided
+- Students and mentors can **search** for each other based on the information provided and see other users' profiles.
 
 - Users can connect with each other. The database stores the connections in a separate table that stores the user that sent the invite, invited user, request and request's status (pending, accepted or declined)
 
